@@ -1,0 +1,5 @@
+1116000000_Q1 : a/b = 1.000000 
+1116000003_Q1 : RunTimeError
+1116000094_Q1 : a/b = 1.000000 
+1116000098_Q1 : CompileError
+1116000099_Q1 : CompileError
