@@ -1,6 +1,7 @@
-# SortedList
-`k`番目の要素に $O(\log(N))$ でアクセスできるmultisetのようなものである．  
-以下のようにアクセスができる．  [実装例](https://github.com/masa-aa/library_cpp/blob/main/SortedList.hpp )
+# Auto Scoring
+フォルダに存在する 012_1116345678_masa_aa_Q1.c のようなC言語のコードをコンパイルし，実行してtxtファイルと比較する．  
+
+以下明日書く
 ```cpp
 int main() {
     SortedList<int> a = {1, 2, 1, 1, 4, 2};  
