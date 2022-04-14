@@ -22,9 +22,12 @@ def rename(folder: str) -> None:
 
 
 def output(filename: str, arg="") -> tuple:
+    """filename(Cのコード)をコンパイルして引数argで実行する"""
+
     _, file = filename.split("\\")
     ID, _ = file.split(".")
     try:
+        # コンパイル
         out = subprocess.run(f"gcc {filename} -o {ID}.exe", shell=True, stdout=PIPE, stderr=PIPE, text=True, timeout=10)
         if out.returncode != 0:
             return ID, "CompileError"
@@ -34,7 +37,9 @@ def output(filename: str, arg="") -> tuple:
         return ID, "FileError"
 
     try:
+        # 実行
         out = subprocess.run(f"{ID}.exe {arg}", shell=True, stdout=PIPE, stderr=PIPE, text=True, timeout=1)
+        # 削除
         subprocess.run(f"del {ID}.exe", shell=True)
 
         if out.returncode == 0:
@@ -46,13 +51,14 @@ def output(filename: str, arg="") -> tuple:
 
 
 def output_text(filename: str, outputs: list) -> None:
+    """filename(.txt)にoutputsを書き込む"""
     f = open(filename, 'a')
     for ID, out in outputs:
         f.write(f"{ID} : {out}\n")
 
 
 def all_execution(folder: str, arg: str = "", save: str = "") -> list:
-
+    """folder内の.cファイルにoutputを作用させる. outputsを保存する場合はsaveにファイル名(.txt)を指定する．"""
     rename(folder)
     files = glob.glob(os.getcwd() + "/" + folder + "/*")
 
@@ -71,6 +77,7 @@ def all_execution(folder: str, arg: str = "", save: str = "") -> list:
 
 
 def equal_text(text1, text2):
+    """2つのtextが改行, スペース除いて一致するか判定する. """
     s = text1.replace("\n", "").replace(" ", "")
     t = text1.replace("\n", "").replace(" ", "")
 
@@ -78,6 +85,7 @@ def equal_text(text1, text2):
 
 
 def equal(folder: str, outputs: list, save: str = ""):
+    """folder(.txt)とoutputsが一致するか判定する. 結果を保存する場合はsaveにファイル名(.txt)を指定する．"""
     rename(folder)
     files = glob.glob(os.getcwd() + "/" + folder + "/*")
 
