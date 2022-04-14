@@ -22,6 +22,9 @@ Linuxには対応する予定．
 ファイル名を破壊的に変更する．
 
 ## (2) compile
+Pythonのsubprocessを用いてCのコードをコンパイルする．  
+コンパイラはgccを用いている．  
+そのため，gccをインストールか，auto_scoring.pyの以下を変更する必要がある．
 ## (3) execute
 ## (4) compare
 以下明日書く
