@@ -7,7 +7,8 @@
 (3) 1116345678.exeを実行し，結果を保存し，1116345678.exe を削除する．  
 (4) .txt も同様に名前を変更し，(3)の結果と比較し，出力を保存する．  
 
-```python:main.py
+```Python
+# main.py
 from auto_scoring import all_execution, equal
 
 # 実行まで
