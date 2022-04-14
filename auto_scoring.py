@@ -79,7 +79,7 @@ def all_execution(folder: str, arg: str = "", save: str = "") -> list:
 def equal_text(text1, text2):
     """2つのtextが改行, スペース除いて一致するか判定する. """
     s = text1.replace("\n", "").replace(" ", "")
-    t = text1.replace("\n", "").replace(" ", "")
+    t = text2.replace("\n", "").replace(" ", "")
 
     return s == t
 
