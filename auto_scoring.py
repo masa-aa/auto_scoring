@@ -122,6 +122,7 @@ def equal(folder: str, outputs: list, save: str = ""):
     return compare
 
 
-outputs = all_execution(folder="sample_c", arg="2 2", save="sample.txt")
+if __name__ == '__main__':
+    outputs = all_execution(folder="sample_c", arg="2 2", save="sample.txt")
 
-equal(folder="sample_txt", outputs=outputs, save="sample_equal.txt")
+    equal(folder="sample_txt", outputs=outputs, save="sample_equal.txt")
