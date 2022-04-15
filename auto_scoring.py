@@ -28,7 +28,6 @@ def output(filename: str, arg="") -> tuple:
     ID, _ = file.split(".")
     try:
         # コンパイル
-        print(file, filename)
         out = subprocess.run(f"gcc {filename} -o {ID}.exe", shell=True, stdout=PIPE, stderr=PIPE, text=True, timeout=10)
 
         if out.returncode != 0:
