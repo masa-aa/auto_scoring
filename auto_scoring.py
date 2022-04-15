@@ -24,11 +24,13 @@ def rename(folder: str) -> None:
 def output(filename: str, arg="") -> tuple:
     """filename(Cのコード)をコンパイルして引数argで実行する"""
 
-    _, file = filename.split("\\")
+    file = filename.split("\\")[-1]
     ID, _ = file.split(".")
     try:
         # コンパイル
+        print(file, filename)
         out = subprocess.run(f"gcc {filename} -o {ID}.exe", shell=True, stdout=PIPE, stderr=PIPE, text=True, timeout=10)
+
         if out.returncode != 0:
             return ID, "CompileError"
         if out.stderr:
@@ -47,7 +49,7 @@ def output(filename: str, arg="") -> tuple:
         else:
             return ID, "RunTimeError"
     except:
-        return ID, "CompileError"
+        return ID, "TimeOutError"
 
 
 def output_text(filename: str, outputs: list) -> None:
@@ -64,7 +66,8 @@ def all_execution(folder: str, arg: str = "", save: str = "") -> list:
 
     outputs = []
     for file in files:
-        _, file = file.split("/")
+        dirs = file.split("/")
+        file = f"{dirs[-2]}/{dirs[-1]}"
         if re.search('.c', file):
             out = output(file, arg)
             print(*out, sep=" : ")
