@@ -87,3 +87,9 @@ Linux だと以下のように変更する必要がある.(かも)
 文字コードや表記揺れの可能性があるため一致判定が`False`で返ってきても信用してはならない．
 
 
+## memo
+コンパイルを  
+```
+subprocess.run(f"gcc {filename}", shell=True, stdout=PIPE, stderr=PIPE, text=True, timeout=10)
+```
+ですれば`.exe`の削除しなくていい気がしてきた．
