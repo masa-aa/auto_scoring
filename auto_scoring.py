@@ -24,7 +24,8 @@ def rename(folder: str) -> None:
 def output(filename: str, arg="") -> tuple:
     """filename(Cのコード)をコンパイルして引数argで実行する"""
 
-    file = filename.split("\\")[-1]
+    file = filename.split("/")[-1]
+    file = file.split("\\")[-1]
     ID, _ = file.split(".")
     try:
         # コンパイル
@@ -40,8 +41,12 @@ def output(filename: str, arg="") -> tuple:
     try:
         # 実行
         out = subprocess.run(f"{ID}.exe {arg}", shell=True, stdout=PIPE, stderr=PIPE, text=True, timeout=1)
+        if out.returncode != 0:
+            out = subprocess.run(f"./{ID}.exe {arg}", shell=True, stdout=PIPE, stderr=PIPE, text=True, timeout=1)
+
         # 削除
-        subprocess.run(f"del {ID}.exe", shell=True)
+        subprocess.run(f"del {ID}.exe", shell=True, stdout=PIPE, stderr=PIPE)
+        subprocess.run(f"rm {ID}.exe", shell=True, stdout=PIPE, stderr=PIPE)
 
         if out.returncode == 0:
             return ID, out.stdout.replace("\n", " ")
@@ -67,7 +72,7 @@ def all_execution(folder: str, arg: str = "", save: str = "") -> list:
     for file in files:
         dirs = file.split("/")
         file = f"{dirs[-2]}/{dirs[-1]}"
-        if re.search('.c', file):
+        if file[-2:] == ".c":
             out = output(file, arg)
             print(*out, sep=" : ")
             outputs.append(out)
