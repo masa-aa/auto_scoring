@@ -138,6 +138,9 @@ def equal(folder: str, outputs: list, save: str = ""):
 
 
 if __name__ == '__main__':
-    outputs = all_execution(folder="sample_c", arg="2 2", save="sample.txt")
+    import sys
+    args = sys.argv[1:]
+    args.append("")
 
-    equal(folder="sample_txt", outputs=outputs, save="sample_equal.txt")
+    outputs = all_execution(folder=args[0], arg=args[2], save=f"{args[0]}.txt")
+    equal(folder=args[1], outputs=outputs, save=f"{args[0]}_equal.txt")
