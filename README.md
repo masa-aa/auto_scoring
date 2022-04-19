@@ -49,7 +49,7 @@ python auto_scoring.py {cがあるフォルダ} {txtがあるフォルダ} {実�
 ```
 例えば
 ```
-python auto_scoring.py sample sample_txt 2 2
+python auto_scoring.py sample_c sample_txt 2 2
 ```
 ここで実行時引数は省略可能
 
