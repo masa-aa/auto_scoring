@@ -40,9 +40,9 @@ def output(filename: str, arg="") -> tuple:
 
     try:
         # 実行
-        out = subprocess.run(f"{ID}.exe {arg}", shell=True, stdout=PIPE, stderr=PIPE, text=True, timeout=1)
+        out = subprocess.run(f"{ID}.exe {arg}", shell=True, stdout=PIPE, stderr=PIPE, text=True, timeout=3)
         if out.returncode != 0:
-            out = subprocess.run(f"./{ID}.exe {arg}", shell=True, stdout=PIPE, stderr=PIPE, text=True, timeout=1)
+            out = subprocess.run(f"./{ID}.exe {arg}", shell=True, stdout=PIPE, stderr=PIPE, text=True, timeout=3)
 
         # 削除
         subprocess.run(f"del {ID}.exe", shell=True, stdout=PIPE, stderr=PIPE)
