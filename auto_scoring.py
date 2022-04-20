@@ -23,14 +23,13 @@ def rename(folder: str) -> None:
 
 def output(filename: str, arg="") -> tuple:
     """filename(Cのコード)をコンパイルして引数argで実行する"""
-
     file = filename.split("/")[-1]
     file = file.split("\\")[-1]
     ID, _ = file.split(".")
+
     try:
         # コンパイル
-        out = subprocess.run(f"gcc {filename} -o {ID}.exe", shell=True, stdout=PIPE, stderr=PIPE, text=True, timeout=10)
-
+        out = subprocess.run(f"gcc \"{filename}\" -o \"{ID}.exe\"", shell=True, stdout=PIPE, stderr=PIPE, text=True, timeout=10)
         if out.returncode != 0:
             return ID, "CompileError"
         if out.stderr:
@@ -40,7 +39,7 @@ def output(filename: str, arg="") -> tuple:
 
     try:
         # 実行
-        out = subprocess.run(f"{ID}.exe {arg}", shell=True, stdout=PIPE, stderr=PIPE, text=True, timeout=3)
+        out = subprocess.run(f"\"{ID}.exe\" {arg}", shell=True, stdout=PIPE, stderr=PIPE, text=True, timeout=3)
         if out.returncode != 0:
             out = subprocess.run(f"./{ID}.exe {arg}", shell=True, stdout=PIPE, stderr=PIPE, text=True, timeout=3)
 
@@ -140,7 +139,6 @@ def equal(folder: str, outputs: list, save: str = ""):
 if __name__ == '__main__':
     import sys
     args = sys.argv[1:]
-    args.append("")
 
-    outputs = all_execution(folder=args[0], arg=args[2], save=f"{args[0]}.txt")
+    outputs = all_execution(folder=args[0], arg=" ".join(args[2:]), save=f"{args[0]}.txt")
     equal(folder=args[1], outputs=outputs, save=f"{args[0]}_equal.txt")
