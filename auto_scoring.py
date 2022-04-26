@@ -29,7 +29,7 @@ def output(filename: str, arg="") -> tuple:
 
     try:
         # コンパイル
-        out = subprocess.run(f"gcc \"{filename}\" -o \"{ID}.exe\"", shell=True, stdout=PIPE, stderr=PIPE, text=True, timeout=10)
+        out = subprocess.run(f"gcc \"{filename}\"", shell=True, stdout=PIPE, stderr=PIPE, text=True, timeout=10)
         if out.returncode != 0:
             return ID, "CompileError"
         if out.stderr:
@@ -39,13 +39,9 @@ def output(filename: str, arg="") -> tuple:
 
     try:
         # 実行
-        out = subprocess.run(f"\"{ID}.exe\" {arg}", shell=True, stdout=PIPE, stderr=PIPE, text=True, timeout=3)
+        out = subprocess.run(f"a.exe {arg}", shell=True, stdout=PIPE, stderr=PIPE, text=True, timeout=3)
         if out.returncode != 0:
-            out = subprocess.run(f"./{ID}.exe {arg}", shell=True, stdout=PIPE, stderr=PIPE, text=True, timeout=3)
-
-        # 削除
-        subprocess.run(f"del {ID}.exe", shell=True, stdout=PIPE, stderr=PIPE)
-        subprocess.run(f"rm {ID}.exe", shell=True, stdout=PIPE, stderr=PIPE)
+            out = subprocess.run(f"./a.exe {arg}", shell=True, stdout=PIPE, stderr=PIPE, text=True, timeout=3)
 
         if out.returncode == 0:
             return ID, out.stdout.replace("\n", " ")
@@ -75,6 +71,11 @@ def all_execution(folder: str, arg: str = "", save: str = "") -> list:
             out = output(file, arg)
             print(*out, sep=" : ")
             outputs.append(out)
+
+    subprocess.run(f"del a.exe", shell=True, stdout=PIPE, stderr=PIPE)
+    subprocess.run(f"del ./a.exe", shell=True, stdout=PIPE, stderr=PIPE)
+    subprocess.run(f"rm a.exe", shell=True, stdout=PIPE, stderr=PIPE)
+    subprocess.run(f"rm ./a.exe", shell=True, stdout=PIPE, stderr=PIPE)
 
     if save:
         output_text(save, outputs)
