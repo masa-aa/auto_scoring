@@ -3,8 +3,8 @@
     
 ## 全体の流れ
 (1) .cのファイル名を012_1116345678_masa_aa_Q1.c → 1116345678_Q1.c に変更する．  
-(2) Cのコードをコンパイルし1116345678.exeを生成する．  
-(3) 1116345678.exeを実行し，結果を保存し，1116345678.exe を削除する．  
+(2) Cのコードをコンパイルしa.exeを生成する．  
+(3) 1116345678.exeを実行し，結果を保存し，a.exe を削除する．  
 (4) .txt も同様に名前を変更し，(3)の結果と比較し，出力を保存する．  
 
 ```Python
@@ -68,10 +68,10 @@ Pythonのsubprocessを用いてCのコードをコンパイルする．
 そのため，gccをインストールか，`auto_scoring.py`の`output(filename)`の以下のように変更する必要がある．
 ```python
 # gcc 
-f"gcc {filename} -o {ID}.exe"
+f"gcc {filename}"
 
 # 例えば Visual Studio 
-f"cl {filename} -o {ID}.exe"
+f"cl {filename}"
 ```
 
 ## (3) execute
@@ -87,9 +87,3 @@ Linux だと以下のように変更する必要がある.(かも)
 文字コードや表記揺れの可能性があるため一致判定が`False`で返ってきても信用してはならない．
 
 
-## memo
-コンパイルを  
-```
-subprocess.run(f"gcc {filename}", shell=True, stdout=PIPE, stderr=PIPE, text=True, timeout=10)
-```
-ですれば`.exe`の削除しなくていい気がしてきた．
